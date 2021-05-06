@@ -9,14 +9,14 @@ import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
-/**
- * Created by jt on 2019-06-07.
- */
 @Slf4j
 @RequiredArgsConstructor
 @Component
 public class BeerInventoryBootstrap implements CommandLineRunner {
-    public static final String BEER_1_UPC = "0631234200036";
+    // Seed data to get things working.
+    // The beer service will tell this Beer Inventory Service.
+    // Our beer service bootstrap will have the same consistent data, we want this beer UPC to have a relationship to that beerId. 
+    public static final String BEER_1_UPC = "0631234200036"; 
     public static final String BEER_2_UPC = "0631234300019";
     public static final String BEER_3_UPC = "0083783375213";
     public static final UUID BEER_1_UUID = UUID.fromString("0a818933-087d-47f2-ad83-2f986ed087eb");
