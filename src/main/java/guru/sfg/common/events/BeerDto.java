@@ -1,5 +1,8 @@
 package guru.sfg.common.events;
 
+// In mssc-beer-service we move all events also into the same package name, 
+// we use the fully qualified class names + deserialize in different services.
+// Those classes do need to match both in name + mostly in properties.
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
