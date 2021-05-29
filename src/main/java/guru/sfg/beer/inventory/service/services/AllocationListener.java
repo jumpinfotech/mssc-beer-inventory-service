@@ -17,28 +17,34 @@ import org.springframework.stereotype.Component;
 @Component
 public class AllocationListener {
     private final AllocationService allocationService;
-    private final JmsTemplate jmsTemplate;
+    // to send out a response
+    private final JmsTemplate jmsTemplate; 
 
     @JmsListener(destination = JmsConfig.ALLOCATE_ORDER_QUEUE)
     public void listen(AllocateOrderRequest request){
-        AllocateOrderResult.AllocateOrderResultBuilder builder = AllocateOrderResult.builder();
-        builder.beerOrderDto(request.getBeerOrderDto());
+        // work with builder pattern
+        AllocateOrderResult.AllocateOrderResultBuilder builder = AllocateOrderResult.builder(); 
+        // the order isn't going to change
+        builder.beerOrderDto(request.getBeerOrderDto()); 
 
         try{
             Boolean allocationResult = allocationService.allocateOrder(request.getBeerOrderDto());
 
-            if (allocationResult){
+            if (allocationResult){ 
+                // we are fully allocated
                 builder.pendingInventory(false);
             } else {
+                // we are waiting for inventory
                 builder.pendingInventory(true);
             }
         } catch (Exception e){
+            // error for unexpected result, in production we'd add more information to understand why it failed
             log.error("Allocation failed for Order Id:" + request.getBeerOrderDto().getId());
-            builder.allocationError(true);
+            builder.allocationError(true); 
         }
 
         jmsTemplate.convertAndSend(JmsConfig.ALLOCATE_ORDER_RESPONSE_QUEUE,
-                builder.build());
+                builder.build()); // builder.build() returns back a AllocateOrderResult object
 
     }
 

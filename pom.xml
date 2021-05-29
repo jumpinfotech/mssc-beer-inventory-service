@@ -6,7 +6,8 @@
     <parent>
         <groupId>com.github.sfg-beer-works</groupId>
         <artifactId>sfg-brewery-bom</artifactId>
-        <version>1.0.11</version>
+        <!-- updated version from 1.0.7 to 1.0.11> maven>install>in console we see the Spring Boot v2.2.1.RELEASE -->
+        <version>1.0.11</version> 
     </parent>
 
     <groupId>guru.springframework</groupId>

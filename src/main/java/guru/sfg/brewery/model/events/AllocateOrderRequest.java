@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class AllocateOrderRequest {
+// class copied from mssc-beer-order-service
+public class AllocateOrderRequest { 
     private BeerOrderDto beerOrderDto;
 }

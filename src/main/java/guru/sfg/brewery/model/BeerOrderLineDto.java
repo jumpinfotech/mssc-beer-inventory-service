@@ -53,6 +53,7 @@ public class BeerOrderLineDto {
     private String beerStyle;
     private UUID beerId;
     private Integer orderQuantity = 0;
+    // added - we track the quantityAllocated + we will respond back to that 
     private Integer quantityAllocated;
     private BigDecimal price;
 }

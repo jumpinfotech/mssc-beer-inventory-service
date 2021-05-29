@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+// new class sends up response
 public class AllocateOrderResult {
     private BeerOrderDto beerOrderDto;
     private Boolean allocationError = false;
