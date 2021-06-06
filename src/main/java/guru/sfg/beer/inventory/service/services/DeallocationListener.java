@@ -13,8 +13,11 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @RequiredArgsConstructor
 @Component
+// listens on "deallocate-order" JMS queue + consumes the deallocation request message 
+// + adds back inventory for the deallocation action (simple implementation).
 public class DeallocationListener {
-
+    
+    // added a method deallocateOrder to class AllocationService, arguably I should have created a DeallocationService
     private final AllocationService allocationService;
 
     @JmsListener(destination = JmsConfig.DEALLOCATE_ORDER_QUEUE)

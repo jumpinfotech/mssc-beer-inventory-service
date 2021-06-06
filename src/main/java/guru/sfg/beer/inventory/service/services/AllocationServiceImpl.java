@@ -67,15 +67,23 @@ public class AllocationServiceImpl implements AllocationService {
 
     }
 
+    // This is the other side of the compensating transaction>
+    // we allocated inventory then our order got cancelled>
+    // we want our inventory returned + become re-available for other orders.
     @Override
     public void deallocateOrder(BeerOrderDto beerOrderDto) {
+        // We can have multiple inventory records for the same items
         beerOrderDto.getBeerOrderLines().forEach(beerOrderLineDto -> {
+            // Rather than trying to find a record + updating the quantity> 
+            // the path of least resistance was to create a new inventory record.
+            // Create a new BeerInventory object:- 
             BeerInventory beerInventory = BeerInventory.builder()
                     .beerId(beerOrderLineDto.getBeerId())
                     .upc(beerOrderLineDto.getUpc())
                     .quantityOnHand(beerOrderLineDto.getQuantityAllocated())
                     .build();
 
+            // save
             BeerInventory savedInventory = beerInventoryRepository.save(beerInventory);
 
             log.debug("Saved Inventory for beer upc: " + savedInventory.getUpc() + " inventory id: " + savedInventory.getId());

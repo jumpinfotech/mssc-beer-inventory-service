@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+// the same class + package is in project mssc-beer-order-service
 public class DeallocateOrderRequest {
     private BeerOrderDto beerOrderDto;
 }
