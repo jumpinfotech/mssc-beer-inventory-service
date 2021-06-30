@@ -61,8 +61,13 @@ public class AllocationServiceImpl implements AllocationService {
                 beerOrderLine.setQuantityAllocated(allocatedQty + inventory);
                 beerInventory.setQuantityOnHand(0);
 
+                // Defekt: getting a lot of quantityOnHand=0 when using this:-
+                // http://localhost:[portNumber]/api/vl/beer/c2f5d300-a821-490c-bd1d-cad2557be757/inventory
+                // Problem: I was deleting beerInventory in this "partial allocation" block if the quantityOnHand was zero:- 
+                // beerInventoryRepository.delete(beerInventory);
+                // but I was missing the same logic in the "full allocation" block
             }
-
+            // Fix:
             if (beerInventory.getQuantityOnHand() == 0) {
                 beerInventoryRepository.delete(beerInventory);
             }
